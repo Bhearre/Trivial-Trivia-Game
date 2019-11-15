@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Added link to the jQuery Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!--  Document on ready loaded after jQuery is loaded to let page load -->
+    <script> $(document).ready(function () { });</script>
+    <!-- Added a link to Bootstrap-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <!-- Added a link to Font Awesome CDN-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Added a link to a local copy of the Meyerweb reset code-->
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <!-- Added a link to a local css file for this page-->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        body {
+            background-color: lightgreen;
+            background-image: "ColorfulPickleBalls.jpg";
+        }
+    </style>
+    <!-- need a button to start the game -->
+    <!-- variables needed for correct answers, wrong answers and no answers -->
+    <!-- initialize a question counter which also could be used to note end of game and show result and button for play again. -->
+    <!-- need an array to show an image or gif-->
+
+    <!-- need to set up container of containers for start, questions, answers and score at end. -->
+
+    <!-- function to determine if answer is correct or wrong
+ capture the click
+ If click is on right answer the alert that you are correct and show picture and add one correct answer
+ if else Alert you are not correct, the correct answer is _____ and show picture and add one to wrong answer
+ -->
+    <div class="container">
+
+        <!-- Header -->
+        <div class="card text-center">
+            <div class="card-header">
+            </div>
+            <div class="card-body">
+                <h1 class="card-title">Totally Trivia Game</h1>
+                <p class="card-text">Play it if you dare.</p>
+                <a href="#" class="btn btn-primary" id="start">Start New Game (Maybe)</a>
+                <div id="numCorrectAnswers">this is number of correct answers</div>
+                <div id="numWrongAnswers">this is number of wrong answers</div>
+                <div id="numNoAnswers">this is number of no answers</div>
+                <div id="message">this is the message</div>
+
+
+            </div>
+
+
+            <div class="card">
+                <div class="card-body">
+                    <div id="time">This is the timer</div>
+                    <div id="question">Question</div>
+                    <button type="button" class="btn btn-primary btn-lg btn-block" id="question">Question</button>
+                    <button type="button" class="btn btn-outline-success btn-lg btn-block" id="answer1"
+                        value="0">Answer1</button>
+                    <button type="button" class="btn btn-outline-success btn-lg btn-block" id="answer2"
+                        value="1">Answer2</button>
+                    <button type="button" class="btn btn-outline-success btn-lg btn-block" id="answer3"
+                        value="2">Answer3</button>
+                    <button type="button" class="btn btn-outline-success btn-lg btn-block" id="answer4"
+                        value="3">Answer4</button>
+
+                </div>
+            </div>
+        </div>
+
+
+        <script>
+
+            var timeLeft = 15;
+
+            var timer = document.getElementById("timer");
+
+
+            var qna = [{
+                question: "Pickleball was invented in:",
+                answers: ["1884", "1954", "1965", "1997"],
+                correctAnswerIndex: 2
+            }, {
+                question: "The game as first played in:",
+                answers: ["California", "Florida", "Washington", "New York"],
+                correctAnswerIndex: 2
+            }, {
+
+                question: "Pickleball was created by:",
+                answers: ["Four Moms", "Three Dads", "Five Kids", "Twenty Dwarves"],
+                correctAnswerIndex: 1
+            }, {
+                question: "The reason the game got started was:",
+                answers: ["Sputnik was launched", "The TV was broken", "They were drunk", "The kids were bored"],
+                correctAnswerIndex: 3
+            }, {
+                question: "The reason its called pickleball is:",
+                answers: ["A founder owned a pickle factory", "A founder's dog name pickles kept stealing the ball", "The game was initially played with pickles", "The founders were pickled"],
+                correctAnswerIndex: 1
+            }, {
+                question: "The composite pickleball paddle was invented by",
+                answers: ["Kathleen White, an game aficionado", "Douglas Gerhardt, a computer engineer", "Arlen Parento, an engineer", "Dave Santos, a auto painter and repairman "],
+                correctAnswerIndex: 2
+            }, {
+                question: "A pickleball court is the the size of a:",
+                answers: ["Cricket Field", "Tennis Court", "Doubles Badminton Court", "Basketball Court"],
+                correctAnswerIndex: 2
+            }, {
+                question: "The number of people playing pickleball in the U.S. is approximately:",
+                answers: ["Between 1,000 and 5,000", "500,000", "1,000,000", "2,500,000"],
+                correctAnswerIndex: 3
+            }, {
+                question: "The non-volley zone in front of the net is known as:",
+                answers: ["Death Valley", "The Zone of Error", "The Basement", "The Kitchen"],
+                correctAnswerIndex: 3
+            }, {
+                question: "The serve in pickleball must be made:",
+                answers: ["Overhand with paddle above your head", "Underhand with paddle below your navel", "With left hand exclaiming: 'Pickle, Pickle, Pickle'", "Right handed on even days"],
+                correctAnswerIndex: 1
+            }, {
+                question: "The number of pickleball courts in the U.S. is approximately:",
+                answers: ["1,500,000", "50,000", "15,000", "567"],
+                correctAnswerIndex: 2
+            }, {
+                question: "There is at least one court in each of:",
+                answers: ["The States West of the Mississipi", "The States East of the Mississipi", "Every State except Alaska and North Dakota", "Every State"],
+                correctAnswerIndex: 3
+            }
+            ];
+
+            var currentQuestionIndex = 0;
+            var correctAnswerIndex = 0;
+            var numCorrectAnswers = 0;
+            var numWrongAnswers = 0;
+            var numberNoAnswers = 0;
+
+            var questionText = document.getElementById("question");
+            var answer1Text = document.getElementById("answer1");
+            var answer2Text = document.getElementById("answer2");
+            var answer3Text = document.getElementById("answer3");
+            var answer4Text = document.getElementById("answer4");
+            var message = document.getElementById("message");
+
+            var numCorrectAnswersText = document.getElementById("numCorrectAnswers");
+            var numWrongAnswersText = document.getElementById("numWrongAnswers")
+
+            var startUp = function () {
+                // show the first question and four answers on the page on startup
+                questionText.textContent = qna[currentQuestionIndex].question;
+                answer1.textContent = qna[currentQuestionIndex].answers[0];
+                answer2.textContent = qna[currentQuestionIndex].answers[1];
+                answer3.textContent = qna[currentQuestionIndex].answers[2];
+                answer4.textContent = qna[currentQuestionIndex].answers[3];
+                console.log("This is the first question: " + qna[currentQuestionIndex].question);
+                console.log("This is the correct answer: " + qna[currentQuestionIndex].answers[qna[currentQuestionIndex].correctAnswerIndex]);
+            };
+
+            $("button").click(function () {
+                var chosenIndex = parseInt(this.value)
+
+                console.log(qna[currentQuestionIndex].correctAnswerIndex);
+
+                if (chosenIndex === qna[currentQuestionIndex].correctAnswerIndex) {
+                    clearTimeout(timerID);
+                    numCorrectAnswers++;
+                    numCorrectAnswersText.textContent = numCorrectAnswers;
+
+                    message.textContent = "Correct! The answer indeed was: " + qna[currentQuestionIndex].answers[qna[currentQuestionIndex].correctAnswerIndex];
+
+                    console.log("correct answers" + numCorrectAnswers);
+
+                    console.log("Correct! The answer indeed was:" + qna[currentQuestionIndex].answers[qna[currentQuestionIndex].correctAnswerIndex]);
+                }
+                else {
+                    clearTimeout(timerID);
+
+                    numberWrongAnswers++;
+
+                    numWrongAnswersText.textContent = numWrongAnswers;
+
+                    message.textContent = "Sorry, the answer actually was: ", qna[currentQuestionIndex].answers[qna[currentQuestionIndex].correctAnswerIndex];
+
+                    console.log("Sorry, the answer actually was: ", qna[currentQuestionIndex].answers[qna[currentQuestionIndex].correctAnswerIndex])
+                }
+                ;
+            });
+
+            var countdown = function () {
+
+                if (timeLeft == 0) {
+                    clearTimeout(timerId);
+                    console.log("time's up!");
+                    timer.innerHTML = "Time's up!";
+
+                } else {
+                    timer.innerHTML = timeLeft + ' seconds remaining';
+                    timeLeft--;
+                    console.log("this is how much time is left " + timeLeft);
+                }
+            }
+
+            $("#start").on("click", function () {
+                startUp();
+                timerId = setInterval(countdown, 1000);
+                countdown();
+            }); 
+
+
+
+        </script>
+
+
+</body>
+
+</html>
