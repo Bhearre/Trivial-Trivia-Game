@@ -21,12 +21,12 @@
 </head>
 
 <body>
-    <style>
+    <!-- <style>
         body {
             background-color: lightgreen;
-            background-image: "ColorfulPickleBalls.jpg";
+            background-image: url("../images/ColorfulPickleballs.jpg");
         }
-    </style>
+    </style> -->
     <!-- need a button to start the game -->
     <!-- variables needed for correct answers, wrong answers and no answers -->
     <!-- initialize a question counter which also could be used to note end of game and show result and button for play again. -->
@@ -46,23 +46,23 @@
             <div class="card-header">
             </div>
             <div class="card-body">
-                <h1 class="card-title">Totally Trivia Game</h1>
+                <h1 class="card-title">Totally Trivial Trivia Game</h1>
                 <p class="card-text">Play it if you dare.</p>
-                <a href="#" class="btn btn-primary" id="start">Start New Game (Maybe)</a>
-                <div id="numCorrectAnswers">this is number of correct answers</div>
-                <div id="numWrongAnswers">this is number of wrong answers</div>
-                <div id="numNoAnswers">this is number of no answers</div>
-                <div id="message">this is the message</div>
 
+                <a href="#" class="btn btn-primary" id="start">Start New Game (Maybe)</a>
+                <div id="numCorrectAnswers">Number of Correct Answers: 0</div>
+                <div id="numWrongAnswers">Number of Wrong Answers: 0</div>
+                <div id="numNoAnswers">Number of Unanswered Questions: 0</div>
+
+                <div id="message"></div>
 
             </div>
 
 
             <div class="card">
                 <div class="card-body">
-                    <div id="time">This is the timer</div>
+                    <div id="timer">This is the timer</div>
                     <div id="question">Question</div>
-                    <button type="button" class="btn btn-primary btn-lg btn-block" id="question">Question</button>
                     <button type="button" class="btn btn-outline-success btn-lg btn-block" id="answer1"
                         value="0">Answer1</button>
                     <button type="button" class="btn btn-outline-success btn-lg btn-block" id="answer2"
@@ -72,6 +72,7 @@
                     <button type="button" class="btn btn-outline-success btn-lg btn-block" id="answer4"
                         value="3">Answer4</button>
 
+
                 </div>
             </div>
         </div>
@@ -79,68 +80,68 @@
 
         <script>
 
-            var timeLeft = 15;
-
-            var timer = document.getElementById("timer");
-
 
             var qna = [{
-                question: "Pickleball was invented in:",
+                question: "Question 1:  Pickleball was invented in:",
                 answers: ["1884", "1954", "1965", "1997"],
                 correctAnswerIndex: 2
             }, {
-                question: "The game as first played in:",
+                question: "Question 2:  The game as first played in:",
                 answers: ["California", "Florida", "Washington", "New York"],
                 correctAnswerIndex: 2
             }, {
 
-                question: "Pickleball was created by:",
+                question: "Question 3:  Pickleball was created by:",
                 answers: ["Four Moms", "Three Dads", "Five Kids", "Twenty Dwarves"],
                 correctAnswerIndex: 1
             }, {
-                question: "The reason the game got started was:",
+                question: "Question 4:  The reason the game got started was:",
                 answers: ["Sputnik was launched", "The TV was broken", "They were drunk", "The kids were bored"],
                 correctAnswerIndex: 3
             }, {
-                question: "The reason its called pickleball is:",
+                question: "Question 5:  The reason its called pickleball is:",
                 answers: ["A founder owned a pickle factory", "A founder's dog name pickles kept stealing the ball", "The game was initially played with pickles", "The founders were pickled"],
                 correctAnswerIndex: 1
             }, {
-                question: "The composite pickleball paddle was invented by",
-                answers: ["Kathleen White, an game aficionado", "Douglas Gerhardt, a computer engineer", "Arlen Parento, an engineer", "Dave Santos, a auto painter and repairman "],
+                question: "Question 6:  The composite pickleball paddle was invented by",
+                answers: ["Kathleen White, an game aficionado", "Douglas Gerhardt, a computer engineer", "Arlen Parento, an engineer", "Dave Santos, an auto painter and repairman "],
                 correctAnswerIndex: 2
             }, {
-                question: "A pickleball court is the the size of a:",
+                question: "Question 7:  A pickleball court is the the size of a:",
                 answers: ["Cricket Field", "Tennis Court", "Doubles Badminton Court", "Basketball Court"],
                 correctAnswerIndex: 2
             }, {
-                question: "The number of people playing pickleball in the U.S. is approximately:",
+                question: "Question 8:  The number of people playing pickleball in the U.S. is approximately:",
                 answers: ["Between 1,000 and 5,000", "500,000", "1,000,000", "2,500,000"],
                 correctAnswerIndex: 3
             }, {
-                question: "The non-volley zone in front of the net is known as:",
+                question: "Question 9:  The non-volley zone in front of the net is known as:",
                 answers: ["Death Valley", "The Zone of Error", "The Basement", "The Kitchen"],
                 correctAnswerIndex: 3
             }, {
-                question: "The serve in pickleball must be made:",
+                question: "Question 10:  The serve in pickleball must be made:",
                 answers: ["Overhand with paddle above your head", "Underhand with paddle below your navel", "With left hand exclaiming: 'Pickle, Pickle, Pickle'", "Right handed on even days"],
                 correctAnswerIndex: 1
             }, {
-                question: "The number of pickleball courts in the U.S. is approximately:",
+                question: "Question 11:  The number of pickleball courts in the U.S. is approximately:",
                 answers: ["1,500,000", "50,000", "15,000", "567"],
                 correctAnswerIndex: 2
             }, {
-                question: "There is at least one court in each of:",
+                question: "Question 12:  There is at least one court in each of:",
                 answers: ["The States West of the Mississipi", "The States East of the Mississipi", "Every State except Alaska and North Dakota", "Every State"],
                 correctAnswerIndex: 3
             }
             ];
 
+            var timeLeft;
+            var timer = document.getElementById('timer');
+
+
             var currentQuestionIndex = 0;
             var correctAnswerIndex = 0;
             var numCorrectAnswers = 0;
             var numWrongAnswers = 0;
-            var numberNoAnswers = 0;
+            var numNoAnswers = 0;
 
             var questionText = document.getElementById("question");
             var answer1Text = document.getElementById("answer1");
@@ -150,69 +151,94 @@
             var message = document.getElementById("message");
 
             var numCorrectAnswersText = document.getElementById("numCorrectAnswers");
-            var numWrongAnswersText = document.getElementById("numWrongAnswers")
+            var numWrongAnswersText = document.getElementById("numWrongAnswers");
+            var numNoAnswersText = document.getElementById("numNoAnswers");
 
-            var startUp = function () {
-                // show the first question and four answers on the page on startup
+
+            var loadQuestion = function () {
+                //clear message
+                message.textContent = "";
+
+                //show the "next" question and four answers on the page
                 questionText.textContent = qna[currentQuestionIndex].question;
                 answer1.textContent = qna[currentQuestionIndex].answers[0];
                 answer2.textContent = qna[currentQuestionIndex].answers[1];
                 answer3.textContent = qna[currentQuestionIndex].answers[2];
                 answer4.textContent = qna[currentQuestionIndex].answers[3];
-                console.log("This is the first question: " + qna[currentQuestionIndex].question);
-                console.log("This is the correct answer: " + qna[currentQuestionIndex].answers[qna[currentQuestionIndex].correctAnswerIndex]);
-            };
+
+                $("button").attr("disabled", false);
+                timeLeft = 15;
+                timerId = setInterval(countdown, 1000);
+
+                countdown();
+            }
+
+
 
             $("button").click(function () {
-                var chosenIndex = parseInt(this.value)
-
-                console.log(qna[currentQuestionIndex].correctAnswerIndex);
+                timer.textContent = "";
+                var chosenIndex = parseInt(this.value);
 
                 if (chosenIndex === qna[currentQuestionIndex].correctAnswerIndex) {
-                    clearTimeout(timerID);
+                    $("button").attr("disabled", true);
+
                     numCorrectAnswers++;
-                    numCorrectAnswersText.textContent = numCorrectAnswers;
-
-                    message.textContent = "Correct! The answer indeed was: " + qna[currentQuestionIndex].answers[qna[currentQuestionIndex].correctAnswerIndex];
-
-                    console.log("correct answers" + numCorrectAnswers);
-
-                    console.log("Correct! The answer indeed was:" + qna[currentQuestionIndex].answers[qna[currentQuestionIndex].correctAnswerIndex]);
+                    numCorrectAnswersText.textContent = "Number of Correct Answers:  " + numCorrectAnswers;
+                    message.textContent = "Correct! The answer indeed is " + qna[currentQuestionIndex].answers[qna[currentQuestionIndex].correctAnswerIndex];
                 }
                 else {
-                    clearTimeout(timerID);
-
-                    numberWrongAnswers++;
-
-                    numWrongAnswersText.textContent = numWrongAnswers;
-
-                    message.textContent = "Sorry, the answer actually was: ", qna[currentQuestionIndex].answers[qna[currentQuestionIndex].correctAnswerIndex];
-
-                    console.log("Sorry, the answer actually was: ", qna[currentQuestionIndex].answers[qna[currentQuestionIndex].correctAnswerIndex])
+                    $("button").attr("disabled", true);
+                    numWrongAnswers++;
+                    numWrongAnswersText.textContent = "Number of Wrong Answers:  " + numWrongAnswers;
+                    message.textContent = "Sorry, the answer actually is " + qna[currentQuestionIndex].answers[qna[currentQuestionIndex].correctAnswerIndex];
                 }
-                ;
+                clearTimeout(timerId);
+                currentQuestionIndex++;
+
+                if (currentQuestionIndex < qna.length - 1) {
+                    setTimeout(loadQuestion, 3000);
+
+                }
+                else {
+
+                    alert("display results");
+                }
+
             });
 
-            var countdown = function () {
 
+            var countdown = function () {
                 if (timeLeft == 0) {
                     clearTimeout(timerId);
-                    console.log("time's up!");
-                    timer.innerHTML = "Time's up!";
+                    message.textContent = "Time's up!  The correct answer is " + qna[currentQuestionIndex].answers[qna[currentQuestionIndex].correctAnswerIndex];
+
+                    timer.textContent = "";
+                    numNoAnswers++;
+                    numNoAnswersText.textContent = "Number of Unanswered Questions:  " + numNoAnswers;
+
+                    currentQuestionIndex++;
+
+                    if (currentQuestionIndex < qna.length - 1) {
+                        setTimeout(loadQuestion, 3000);
+                    }
+                    else {
+
+                        alert("display results");
+                    }
+
+
 
                 } else {
-                    timer.innerHTML = timeLeft + ' seconds remaining';
+                    timer.textContent = timeLeft + ' seconds remaining';
                     timeLeft--;
-                    console.log("this is how much time is left " + timeLeft);
+                    console.log("This is how much time is left " + timeLeft);
                 }
             }
 
-            $("#start").on("click", function () {
-                startUp();
-                timerId = setInterval(countdown, 1000);
-                countdown();
-            }); 
 
+            $("#start").on("click", function () {
+                loadQuestion();
+            });
 
 
         </script>
