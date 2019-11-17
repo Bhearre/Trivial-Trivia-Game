@@ -140,7 +140,7 @@ var loadQuestion = function () {
     // disable the buttons before clicks
     $("button").attr("disabled", false);
     // set the amount of time the user has to answer
-    timeLeft = 5;
+    timeLeft = 12;
     // set timer id to countdown by one second
     timerId = setInterval(countdown, 1000);
     // call the countdown function
@@ -189,7 +189,7 @@ $(".answerButton").click(function () {
 
 var countdown = function () {
     console.log('countdown with time left', timeLeft)
-    if (timeLeft == 0) {
+    if (timeLeft === 0) {
         console.log('clearing timer')
         clearInterval(timerId);
         message.textContent = "Time's up!  The correct answer is " + qna[currentQuestionIndex].answers[qna[currentQuestionIndex].correctAnswerIndex];
@@ -203,7 +203,7 @@ var countdown = function () {
 
         currentQuestionIndex++;
 
-        if (currentQuestionIndex < qna.length - 1) {
+        if (currentQuestionIndex < qna.length) {
             setTimeout(loadQuestion, 3000);
             //loadQuestion()
         }
@@ -222,8 +222,6 @@ var countdown = function () {
         console.log("This is how much time is left " + timeLeft);
     }
 }
-
-var transition
 
 
 $("#start").on("click", function () {
