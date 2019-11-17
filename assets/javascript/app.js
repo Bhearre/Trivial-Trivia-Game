@@ -94,7 +94,6 @@ var numNoAnswersText = document.getElementById("numNoAnswers");
 
 // create an initialize function for start and restart of the game
 var initialize = function () {
-    console.log("were in initialize")
     currentQuestionIndex = 0;
     correctAnswerIndex = 0;
     numCorrectAnswers = 0;
@@ -121,7 +120,6 @@ var initialize = function () {
 
 // create a function to load the questions and answers
 var loadQuestion = function () {
-    console.log('load question')
     //clear message
     message.textContent = "";
 
@@ -149,7 +147,6 @@ var loadQuestion = function () {
 
 // function when user clicks an answer, evaluates its correctnes, and adds to the score
 $(".answerButton").click(function () {
-    console.log('answer button clicked')
     timer.textContent = "";
     var chosenIndex = parseInt(this.value);
     $("button").attr("disabled", true);
@@ -188,9 +185,7 @@ $(".answerButton").click(function () {
 
 
 var countdown = function () {
-    console.log('countdown with time left', timeLeft)
     if (timeLeft === 0) {
-        console.log('clearing timer')
         clearInterval(timerId);
         message.textContent = "Time's up!  The correct answer is " + qna[currentQuestionIndex].answers[qna[currentQuestionIndex].correctAnswerIndex];
         imageText.textContent = "Time's up!  The correct answer is " + qna[currentQuestionIndex].answers[qna[currentQuestionIndex].correctAnswerIndex];
@@ -219,14 +214,12 @@ var countdown = function () {
     } else {
         timer.textContent = timeLeft + ' seconds remaining';
         timeLeft--;
-        console.log("This is how much time is left " + timeLeft);
     }
 }
 
 
 $("#start").on("click", function () {
     initialize()
-    console.log("we are in start")
     //currentQuestionIndex = 0;
     loadQuestion();
 });
